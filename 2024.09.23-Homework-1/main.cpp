@@ -1,35 +1,18 @@
-// main.cpp
 #include "TextEditor.h"
 
 int main() {
     TextEditor editor;
 
-    // Вставка текста
-    editor.Insert('H');
-    editor.Insert('e');
-    editor.Insert('l');
-    editor.Insert('l');
-    editor.MoveCursorLeft();
-    editor.MoveCursorLeft();
-    editor.Insert('i');
-    editor.MoveCursorLeft();
-    editor.Insert('i');
-    editor.PrintText();  // Вывод: Heilo
-    editor.Insert('o');
-    editor.PrintText();  // Вывод: Helilo
+    editor.addText("Hello, world!");
+    editor.PrintText();  
+    std::cout << editor.cursorLeft(5) << std::endl;  
+    editor.addText("of bebra");
+    editor.PrintText(); 
 
-    // Удаление символа (Backspace)
-    editor.Backspace();
-    editor.PrintText();  // Вывод: Helil
+    editor.deleteText(4);
+    editor.PrintText();  
 
-    // Перемещение курсора влево и вставка
-    editor.MoveCursorLeft();
-    editor.MoveCursorLeft();
-    editor.Insert('i');
-    editor.MoveCursorLeft();
-    editor.Insert('i');
-    editor.PrintText();  // Вывод: Heilioil
-    editor.PrintText();  // Вывод: Heliloil
+    std::cout << editor.cursorRight(5) << std::endl;  
 
     return 0;
 }

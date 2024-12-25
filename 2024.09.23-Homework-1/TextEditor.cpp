@@ -1,81 +1,105 @@
-// TextEditor.cpp
 #include "TextEditor.h"
 
-// Node methods
 Node::Node(char data, Node* next) : data(data), next(next) {}
-Node::~Node() { next = nullptr; }
 
-// TextEditor methods
 TextEditor::TextEditor() : head(nullptr), cursor(nullptr) {}
-TextEditor::~TextEditor() { dispose(); }
+TextEditor::~TextEditor() {dispose();}
 
-void TextEditor::Insert(char data) {
-    if (!cursor) {
-        PushHead(data);
-        cursor = head;
-    } else {
-        cursor->next = new Node(data, cursor->next);
-        cursor = cursor->next;
-    }
-}
+void TextEditor::addText(const std::string& text) {
+    for (char c : text) {
+        Node* newNode = new Node(c);
 
-void TextEditor::Backspace() {
-    if (!head || !cursor) return;
-
-    if (cursor == head) {
-        PopHead();
-        cursor = head;
-    } else {
-        Node* tmp = head;
-        while (tmp->next != cursor) {
-            tmp = tmp->next;
+        if (!cursor) 
+        {
+            newNode->next = head;
+            head = newNode;
+            cursor = newNode;
+        } 
+        else 
+        { 
+            newNode->next = cursor->next;
+            cursor->next = newNode;
+            cursor = newNode;
         }
-        tmp->next = cursor->next;
+    }
+}
+
+
+int TextEditor::deleteText(int k) 
+{
+    int count = 0;
+
+    while (k-- > 0 && cursor && cursor != head) {
+        Node* prev = head;
+        while (prev->next != cursor)
+        {
+            prev = prev->next;
+        }
+
+        prev->next = cursor->next;
         delete cursor;
-        cursor = tmp;
+        cursor = prev;
+        ++count;
     }
+
+    if (cursor == head && k >= 0) 
+    {
+        delete head;
+        head = nullptr;
+        cursor = nullptr;
+        ++count;
+    }
+
+    return count;
 }
 
-void TextEditor::MoveCursorLeft() {
-    if (!cursor || cursor == head) return;
-
-    Node* tmp = head;
-    while (tmp->next != cursor) {
-        tmp = tmp->next;
+std::string TextEditor::cursorLeft(int k) {
+    while (k-- > 0 && cursor && cursor != head) {
+        Node* prev = head;
+        while (prev->next != cursor) {
+            prev = prev->next;
+        }
+        cursor = prev;
     }
-    cursor = tmp;
+
+    std::string result;
+    Node* temp = head;
+    while (temp != cursor->next) {
+        result += temp->data;
+        temp = temp->next;
+    }
+
+    return result.size() > 10 ? result.substr(result.size() - 10) : result;
 }
 
-void TextEditor::MoveCursorRight() {
-    if (cursor && cursor->next) {
+std::string TextEditor::cursorRight(int k) {
+    while (k-- > 0 && cursor && cursor->next) {
         cursor = cursor->next;
     }
+
+    std::string result;
+    Node* temp = head;
+    while (temp != cursor->next) {
+        result += temp->data;
+        temp = temp->next;
+    }
+
+    return result.size() > 10 ? result.substr(result.size() - 10) : result;
 }
 
 void TextEditor::PrintText() const {
-    Node* tmp = head;
-    while (tmp) {
-        std::cout << tmp->data;
-        tmp = tmp->next;
+    Node* temp = head;
+    while (temp) {
+        std::cout << temp->data;
+        temp = temp->next;
     }
     std::cout << std::endl;
 }
 
-// Private methods
-void TextEditor::PushHead(char data) {
-    head = new Node(data, head);
-}
-
-void TextEditor::PopHead() {
-    if (head) {
-        Node* tmp = head;
-        head = head->next;
-        delete tmp;
-    }
-}
-
 void TextEditor::dispose() {
     while (head) {
-        PopHead();
+        Node* temp = head;
+        head = head->next;
+        delete temp;
     }
 }

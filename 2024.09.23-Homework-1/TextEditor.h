@@ -1,36 +1,30 @@
-// TextEditor.h
 #ifndef TEXTEDITOR_H
 #define TEXTEDITOR_H
 
 #include <iostream>
 #include <string>
 
-struct Node
-{
+struct Node {
     char data;
     Node* next;
     Node(char data, Node* next = nullptr);
-    ~Node();
 };
 
-class TextEditor
-{
+class TextEditor {
 public:
     TextEditor();
     ~TextEditor();
 
-    void Insert(char data);
-    void Backspace();
-    void MoveCursorLeft();
-    void MoveCursorRight();
-    void PrintText() const;
+    void addText(const std::string& text); 
+    int deleteText(int k); 
+    std::string cursorLeft(int k);   
+    std::string cursorRight(int k);  
+    void PrintText() const; 
 
 private:
-    Node* head;
-    Node* cursor;
+    Node* head; 
+    Node* cursor;   
 
-    void PushHead(char data);
-    void PopHead();
     void dispose();
 };
 
