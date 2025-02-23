@@ -7,11 +7,11 @@ void TextEditor::addText(const std::string& text) {
         Node* newNode = new Node(c);
         if (!head) {
             head = newNode;
-            cursor = newNode; // Устанавливаем курсор на первый добавленный символ
+            cursor = newNode;
         } else {
             newNode->next = cursor->next;
             cursor->next = newNode;
-            cursor = newNode; // Перемещаем курсор на новый символ
+            cursor = newNode; 
         }
     }
 }
@@ -21,21 +21,19 @@ int TextEditor::deleteText(int k) {
 
     while (k-- > 0 && cursor) {
         if (cursor == head) {
-            // Удаляем первый элемент
             Node* temp = head;
             head = head->next;
             delete temp;
-            cursor = head; // Перемещаем курсор на новый первый элемент
+            cursor = head;
             count++;
         } else {
-            // Удаляем элемент, на который указывает курсор
             Node* prev = head;
             while (prev->next != cursor) {
                 prev = prev->next;
             }
             prev->next = cursor->next;
             delete cursor;
-            cursor = prev; // Перемещаем курсор на предыдущий элемент
+            cursor = prev;
             count++;
         }
     }
@@ -48,19 +46,17 @@ std::string TextEditor::cursorLeft(int k) {
         while (prev->next != cursor) {
             prev = prev->next;
         }
-        cursor = prev; // Перемещаем курсор влево
+        cursor = prev;
     }
 
-    // Возвращаем текст от начала до курсора
     return getText();
 }
 
 std::string TextEditor::cursorRight(int k) {
     while (k-- > 0 && cursor && cursor->next) {
-        cursor = cursor->next; // Перемещаем курсор вправо
+        cursor = cursor->next;
     }
 
-    // Возвращаем текст от начала до курсора
     return getText();
 }
 
@@ -71,11 +67,11 @@ std::string TextEditor::getText() const {
         result += temp->data;
         temp = temp->next;
     }
-    return result; // Возвращаем текст
+    return result;
 }
 
 void TextEditor::PrintText() const {
-    std::cout << getText() << std::endl; // Печатаем весь текст
+    std::cout << getText() << std::endl;
 }
 
 void TextEditor::dispose() {

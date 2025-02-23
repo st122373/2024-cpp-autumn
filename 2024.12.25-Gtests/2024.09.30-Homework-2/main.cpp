@@ -1,6 +1,6 @@
 // main.cpp
 #include <gtest/gtest.h>
-#include "Bank.h" // Assuming you have a BankAccount class
+#include "Bank.h"
 
 TEST(BankAccountTest, CreateAccount) {
     BankAccount account ("12345", "John Doe", 1000.0);
@@ -8,7 +8,7 @@ TEST(BankAccountTest, CreateAccount) {
     EXPECT_EQ(account.GetAccountHolder(), "John Doe");
     EXPECT_EQ(account.GetBalance(), 1000.0);
 }
-/*
+
 TEST(BankAccountTest, DepositAmount) {
     BankAccount account;
     account.createAccount(12345, "John Doe", 'S', 1000);
@@ -60,8 +60,8 @@ TEST(BankAccountTest, DepositNegativeAmount) {
     account.createAccount(12345, "John Doe", 'S', 1000);
     EXPECT_THROW(account.deposit(-500), std::invalid_argument);
 }
-*/
+
 int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv); // Инициализация Google Test
-    return RUN_ALL_TESTS(); // Запуск всех тестов
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }

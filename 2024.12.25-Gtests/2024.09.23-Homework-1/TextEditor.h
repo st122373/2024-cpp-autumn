@@ -26,7 +26,7 @@ private:
     Node* cursor;
 
     void dispose();
-    std::string getText() const; // Вспомогательный метод для получения текста
+    std::string getText() const; // Helper method for getting text
 };
 
 #endif // TEXTEDITOR_H

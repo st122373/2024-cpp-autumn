@@ -1,4 +1,3 @@
-// Bank.h
 #ifndef BANK_H
 #define BANK_H
 
@@ -37,9 +36,9 @@ private:
 
 public:
     Bank() = default;
-    Bank(const Bank& other) = default; // Конструктор копирования по умолчанию
-    Bank(Bank&& other) noexcept = default; // Конструктор перемещения по умолчанию
-    ~Bank() = default; // Деструктор
+    Bank(const Bank& other) = default;
+    Bank(Bank&& other) noexcept = default;
+    ~Bank() = default;
 
     void AddAccount(const BankAccount& account);
 
@@ -48,7 +47,4 @@ public:
     void PrintAllAccounts() const;
 };
 
-
-
-
-#endif // BANK_H
+#endif
